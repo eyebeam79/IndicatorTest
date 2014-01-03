@@ -10,14 +10,38 @@
 
 @interface ViewController ()
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator1;
+@property (strong, nonatomic) UIActivityIndicatorView *indicator2;
+
 @end
 
 @implementation ViewController
+- (IBAction)startIndicator:(id)sender
+{
+    [self.indicator1 startAnimating];
+    
+    [self.indicator2 performSelector:@selector(startAnimating) withObject:nil afterDelay:0.3];
+}
+
+- (IBAction)stopIndicator:(id)sender
+{
+    [self.indicator1 stopAnimating];
+    
+    [self.indicator2 performSelector:@selector(stopAnimating) withObject:nil afterDelay:0.7];
+
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.indicator2 = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.indicator2.hidesWhenStopped = YES;
+    self.indicator2.center = CGPointMake(160, 200);
+    
+    [self.view addSubview:self.indicator2];
 }
 
 - (void)didReceiveMemoryWarning
